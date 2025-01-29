@@ -7,6 +7,7 @@ const connectDB = require('./utils/db')
 const authRoutes = require('./routes/authRoutes')
 const categoryRoutes = require('./routes/dashboard/categoryRoutes')
 const productRoutes = require('./routes/dashboard/productRoutes')
+const sellerRoutes = require('./routes/dashboard/sellerRoutes')
 
 const {createAdmin} = require('./controllers/authControllers')
 
@@ -20,6 +21,7 @@ app.use(cookieParser())
 app.use('/api/v1', authRoutes)
 app.use('/api/v1', categoryRoutes)
 app.use('/api/v1', productRoutes)
+app.use('/api/v1', sellerRoutes)
 
 app.get('/', (req, res) => {
     res.send("Welcome to Ecommerce by Dark")

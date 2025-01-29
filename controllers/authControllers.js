@@ -154,6 +154,25 @@ const profile_image_upload = async (req, res) => {
     })
 }
 
+const profile_info_add = async (req, res) => {
+    const {division, district, shopName, sub_district} = req.body
+    const {id} = req
+
+    try {
+        const userInfo = await Seller.findByIdAndUpdate(id, {
+            shopInfo: {
+                shopName,
+                division,
+                district,
+                sub_district
+            }
+        }, {new: true})
+
+        res.status(201).json({msg: 'Profile info Added Successfully!!', userInfo})
+    } catch (error) {
+        res.status(500).json({error: error.message})
+    }
+}
 
 module.exports = {
     createAdmin,
@@ -161,5 +180,6 @@ module.exports = {
     getUser,
     sellerRegister,
     sellerLogin,
-    profile_image_upload
+    profile_image_upload,
+    profile_info_add
 }
