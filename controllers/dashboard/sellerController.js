@@ -26,7 +26,30 @@ const get_seller_request = async (req, res) => {
     }
 }
 
+const get_seller = async (req, res) => {
+    const {sellerId} = req.params
+    try {
+        const seller = await Seller.findById(sellerId)
+        res.status(200).json({seller})
+    } catch (error) {
+        res.status(500).json({error: error.message})
+    }
+}
+
+const seller_status_update = async (req, res) => {
+    const {sellerId, status} = req.body
+    try {
+        const seller = await Seller.findByIdAndUpdate(sellerId, {status},
+            {new: true}
+        )
+        res.status(200).json({seller, msg: 'Seller Status Updated'})
+    } catch (error) {
+        res.status(500).json({error: error.message})        
+    }
+}
 
 module.exports = {
-    get_seller_request
+    get_seller_request,
+    get_seller,
+    seller_status_update
 }
